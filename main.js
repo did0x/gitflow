@@ -9,6 +9,9 @@ const rl = readline.createInterface({
 // Choices array
 const choices = ['rock', 'paper', 'scissors'];
 
+// Initialize user win count
+let userWins = 0;
+
 // Function to get computer's choice
 function getComputerChoice() {
     const randomIndex = Math.floor(Math.random() * choices.length);
@@ -25,6 +28,7 @@ function determineWinner(playerChoice, computerChoice) {
         (playerChoice === 'paper' && computerChoice === 'rock') ||
         (playerChoice === 'scissors' && computerChoice === 'paper')
     ) {
+        userWins++;
         return 'You win!';
     } else {
         return 'Computer wins!';
@@ -45,12 +49,14 @@ function playGame() {
             console.log(`Computer chose: ${computerChoice}`);
             const result = determineWinner(playerChoice, computerChoice);
             console.log(result);
+            console.log(`You have won ${userWins} times.`);
 
             rl.question('Do you want to play again? (yes/no): ', (playAgain) => {
                 if (playAgain.toLowerCase() === 'yes') {
                     playGame();
                 } else {
                     console.log('Thanks for playing!');
+                    console.log(`Total wins: ${userWins}`);
                     rl.close();
                 }
             });
